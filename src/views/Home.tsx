@@ -4,7 +4,12 @@ import { Grid } from '@material-ui/core';
 import ProductComponent from '../components/ProductComponent';
 import { getProducts } from '../services/products.service';
 
-const HomePage: React.FC = () => {
+
+type Props = {
+    addToCart: (product:Products.Product) => void
+}
+
+const HomePage: React.FC<Props> = (props: Props) => {
     const [productsList, setProductList] = useState<Products.Product[]>([]);
 
     const getProductList = async () => {
@@ -15,7 +20,7 @@ const HomePage: React.FC = () => {
 
     const RenderProduct = (product: Products.Product) => {
         return (
-            <Grid item md={3}>
+            <Grid key={product.id} item md={3}>
                 <ProductComponent 
                 id={product.id}
                 title={product.title}
@@ -23,6 +28,7 @@ const HomePage: React.FC = () => {
                 description={product.description}
                 category={product.category}
                 image={product.image}
+                addToCart={props.addToCart}
                 />
             </Grid>
             );
