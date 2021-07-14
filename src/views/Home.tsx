@@ -11,7 +11,6 @@ const HomePage: React.FC = () => {
         const products = await getProducts();
 
         setProductList(products);
-        console.log(productsList, products);
     }
 
     const RenderProduct = (product: Products.Product) => {
