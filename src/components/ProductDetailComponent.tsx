@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
+import { CartContext } from "../contexts/cart.context";
 
 export const DetailStyles = makeStyles({
     root: {
@@ -29,6 +30,7 @@ type Props = Products.Product;
 
 const ProductDetail: React.FC<Props> = (props: Props) => {
   const classes = DetailStyles();
+  const { addToCart } = useContext(CartContext);
 
   return (
     <Card className={classes.root}>
@@ -51,6 +53,20 @@ const ProductDetail: React.FC<Props> = (props: Props) => {
         <Typography gutterBottom component="h1">
           ${props.price}
         </Typography>
+        <Button
+          onClick={() => addToCart({
+            id: props.id,
+            title: props.title,
+            price: props.price,
+            description: props.description,
+            category: props.category,
+            image: props.image
+          })}
+          size="small"
+          color="primary"
+        >
+          Añadir al carrito
+        </Button>
       </CardActions>
     </Card>
   );
