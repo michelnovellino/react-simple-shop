@@ -4,12 +4,7 @@ import { Grid } from '@material-ui/core';
 import ProductComponent from '../components/ProductComponent';
 import { getProducts } from '../services/products.service';
 
-
-type Props = {
-    addToCart: (product:Products.Product) => void
-}
-
-const HomePage: React.FC<Props> = (props: Props) => {
+const HomePage: React.FC = () => {
     const [productsList, setProductList] = useState<Products.Product[]>([]);
 
     const getProductList = async () => {
@@ -28,7 +23,6 @@ const HomePage: React.FC<Props> = (props: Props) => {
                 description={product.description}
                 category={product.category}
                 image={product.image}
-                addToCart={props.addToCart}
                 />
             </Grid>
             );
@@ -37,9 +31,6 @@ const HomePage: React.FC<Props> = (props: Props) => {
     useEffect(() => {
         getProductList();
     }, []);
-
-
- 
 
   return (
     <Grid container spacing={4} justify="space-around">

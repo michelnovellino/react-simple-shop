@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/cart.context";
 
 const DetailStyles = makeStyles({
   root: {
@@ -33,11 +34,11 @@ type Props = {
   description: string;
   category: string;
   image: string;
-  addToCart: (product: Products.Product) => void;
 };
 
 const ProductComponent: React.FC<Props> = (props: Props) => {
   const classes = DetailStyles();
+  const { addToCart } = useContext(CartContext);
 
   return (
     <Card className={classes.root}>
@@ -67,7 +68,7 @@ const ProductComponent: React.FC<Props> = (props: Props) => {
           ${props.price}
         </Typography>
         <Button
-          onClick={() => props.addToCart({
+          onClick={() => addToCart({
             id: props.id,
             title: props.title,
             price: props.price,
